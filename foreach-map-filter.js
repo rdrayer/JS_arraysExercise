@@ -7,11 +7,11 @@ Examples:
 
 */
 function doubleValues(arr){
-    const doubled = []; // we need to create an empty array first, this is what we'll return
-    for(let i = 0; i < arr.length; i++) {
-        doubled.push(arr[i] * 2);
+    const doubled = [];
+    for(let i = 0; i < arr.length; i++) { // loop through array
+        doubled.push(arr[i] * 2); // value i * 2 and push into empty array
     }
-    return doubled;
+    return doubled; // return array
 }
 
 /*
@@ -25,9 +25,9 @@ Examples:
 function onlyEvenValues(arr){
     // we want to filter and return an array
     const evens = [];
-    arr.filter(function(value) { 
-        if(value % 2 === 0) {
-            evens.push(value); // push into new array only if the number is divisible by 2.
+    arr.filter(function(val) {
+        if(val % 2 === 0) {
+            evens.push(val);
         }
     });
     return evens;
@@ -42,14 +42,11 @@ Examples:
 
 */
 function showFirstAndLast(arr){
-    // create new array, we need to use the index here too.
-    const firstAndLast = [];
-    arr.map(function(value) {
-        firstAndLast.push(value[0] + value[value.length - 1]); // we can combine the values based on multiple indexes via push
-        });
-
-    return firstAndLast;
-
+    const newArray = [];
+    for (let i = 0; i < arr.length; i++) {
+        newArray.push(arr[i][0] + arr[i][arr[i].length - 1]);
+    }
+    return newArray;
 }
 
 /*
@@ -62,14 +59,16 @@ Examples:
 
 */
 function addKeyAndValue(arr,key,value){
-    arr.forEach(function(v){ // for each object in array, take the individual object
-        v[key] = value; // using bracket notation, set the key passed in as the key and the value passed in as the value
+    arr.forEach(function(val) {
+        val[key] = value; // bracket notation to dynamically add the key and value passed in
     });
     return arr;
 }
 
 /*
-Write a function called vowelCount which accepts a string and returns an object with the keys as the vowel and the values as the number of times the vowel appears in the string. This function should be case insensitive so a lowercase letter and uppercase letter should count
+Write a function called vowelCount which accepts a string and returns an object with 
+the keys as the vowel and the values as the number of times the vowel appears in the string. 
+This function should be case insensitive so a lowercase letter and uppercase letter should count
 
 Examples:
     vowelCount('Elie') // {e:2,i:1};
@@ -79,11 +78,28 @@ Examples:
     vowelCount('I Am awesome and so are you') // {i: 1, a: 4, e: 3, o: 3, u: 1};
 */
 function vowelCount(str){
-   
+   const vowels = ['a', 'e', 'i', 'o', 'u'];
+   //let vowelCount = 0;
+   let obj = {};
+   let splitStr = str.split('');
+   //console.log(splitStr);
+
+   splitStr.forEach(function(letter) {
+    if(vowels.indexOf(letter) !== -1) {
+        if(obj[letter]) { // if the obj for the letter exists..
+            obj[letter]++; // add to the count value
+        } else {
+            obj[letter] = 1; // otherwise set the count to 1.
+        }
+    }
+   })
+   //console.log(obj);
+   return obj;
 }
 
 /*
-Write a function called doubleValuesWithMap which accepts an array and returns a new array with all the values in the array passed to the function doubled
+Write a function called doubleValuesWithMap which accepts an array and returns a new array with
+all the values in the array passed to the function doubled
 
 Examples:
     doubleValuesWithMap([1,2,3]) // [2,4,6]
@@ -99,7 +115,8 @@ function doubleValuesWithMap(arr) {
 }
 
 /*
-Write a function called valTimesIndex which accepts an array and returns a new array with each value multiplied by the index it is currently at in the array.
+Write a function called valTimesIndex which accepts an array and returns a new array with each 
+value multiplied by the index it is currently at in the array.
 
 Examples:
     valTimesIndex([1,2,3]) // [0,2,6]
@@ -107,49 +124,94 @@ Examples:
 */
 
 function valTimesIndex(arr){
-    
+    const valMultIndex = [];
+    arr.map(function(val, i) { // for each value and index in arr...
+        valMultIndex.push(val * i); // push the value multiplied by the index into the empty array valMultIndex
+    });
+    //console.log(valMultIndex);
+    return valMultIndex;
 }
 
 /*
-Write a function called extractKey which accepts an array of objects and some key and returns a new array with the value of that key in each object.
+Write a function called extractKey which accepts an array of objects and some key and returns a 
+new array with the value of that key in each object.
 
 Examples:
-    extractKey([{name: 'Elie'}, {name: 'Tim'}, {name: 'Matt'}, {name: 'Colt'}], 'name') // ['Elie', 'Tim', 'Matt', 'Colt']
+    extractKey([{name: 'Elie'}, {name: 'Tim'}, {name: 'Matt'}, {name: 'Colt'}], 'name') 
+    // ['Elie', 'Tim', 'Matt', 'Colt']
 */
 
 function extractKey(arr, key){
-    
+    const newArray = [];
+    //console.log(arr);
+    arr.map(function(val) {
+        //console.log(val[key]); // get each value of the key passed in (name)
+        newArray.push(val[key]); // push it to the new array
+    });
+    //console.log(newArray);
+    return newArray;
 }
 
 /*
-Write a function called extractFullName which accepts an array of objects and returns a new array with the value of the key with a name of "first" and the value of a key with the name of  "last" in each object, concatenated together with a space. 
+Write a function called extractFullName which accepts an array of objects and returns a new 
+array with the value of the key with a name of "first" and the value of a key with the name of  "last" in each object, concatenated together with a space. 
 
 Examples:
-    extractFullName([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia"}, {first: 'Matt', last:"Lane"}, {first: 'Colt', last:"Steele"}]) // ['Elie Schoppik', 'Tim Garcia', 'Matt Lane', 'Colt Steele']
+    extractFullName([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia"}, 
+    {first: 'Matt', last:"Lane"}, {first: 'Colt', last:"Steele"}]) 
+    // ['Elie Schoppik', 'Tim Garcia', 'Matt Lane', 'Colt Steele']
 */
 
 function extractFullName(arr){
+    const newArray = []; // create empty array
+    arr.map(function(val) {
+        newArray.push(val.first + ' ' + val.last);
+    });
+    return newArray;
+}
+
+/*
+Write a function called filterByValue which accepts an array of objects and a key and returns 
+a new array with all the objects that contain that key.
+
+Examples:
+    filterByValue([{first: 'Elie', last:"Schoppik"}, 
+    {first: 'Tim', last:"Garcia", isCatOwner: true}, 
+    {first: 'Matt', last:"Lane"}, 
+    {first: 'Colt', last:"Steele", isCatOwner: true}], 'isCatOwner') 
+    // [{first: 'Tim', last:"Garcia", isCatOwner: true}, 
+    {first: 'Colt', last:"Steele", isCatOwner: true}]
+*/
+
+function filterByValue(arr, key) {
+    const newArray = []; // create empty array
+    
+    arr.map(function(val) {
+        //console.log(val);
+        if (val[key]) { // if the item has an existing object isCatOwner
+            newArray.push(val); // push to newArray
+        }      
+    });
+    //console.log(newArray);
+    return newArray;
     
 }
 
 /*
-Write a function called filterByValue which accepts an array of objects and a key and returns a new array with all the objects that contain that key.
-
-Examples:
-    filterByValue([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia", isCatOwner: true}, {first: 'Matt', last:"Lane"}, {first: 'Colt', last:"Steele", isCatOwner: true}], 'isCatOwner') // [{first: 'Tim', last:"Garcia", isCatOwner: true}, {first: 'Colt', last:"Steele", isCatOwner: true}]
-*/
-
-function filterByValue(arr, key) {}
-
-/*
-Write a function called find which accepts an array and a value and returns the first element in the array that has the same value as the second parameter or undefined if the value is not found in the array.
+Write a function called find which accepts an array and a value and returns 
+the first element in the array that has the same value as the second parameter 
+or undefined if the value is not found in the array.
 
 Examples:
     find([1,2,3,4,5], 3) // 3
     find([1,2,3,4,5], 10) // undefined
 */
 
-function find(arr, searchValue) {}
+function find(arr, searchValue) {
+    return arr.filter(function(val) {
+        return val === searchValue;
+    })[0];
+}
 
 /*
 Write a function called findInObj which accepts an array of objects, a key, and some value to search for and returns the first found value in the array.
